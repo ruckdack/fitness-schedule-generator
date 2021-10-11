@@ -34,7 +34,7 @@ func ReadJson() *PlanConfig {
 	if isConfigValid(&planConfig) {
 		return &planConfig
 	}
-	log.Fatal("weekdays or start date is not valid")
+	log.Fatal("config keys are not valid")
 	return nil
 }
 
@@ -70,6 +70,21 @@ func isConfigValid(planConfig *PlanConfig) bool {
 		_, found := Find(splitNames, val)
 		if !found {
 			return false
+		}
+	}
+	// check if exercise identifiers in splits are defined
+	availableExercises := make([]string, len(planConfig.Exercises))
+	for idx, exercise := range planConfig.Exercises {
+		availableExercises[idx] = exercise.Name
+	}
+	for _, split := range planConfig.Splits {
+		for _, exerciseVariations := range split.Exercises {
+			for _, exercise := range exerciseVariations {
+				_, found := Find(availableExercises, exercise)
+				if !found {
+					return false
+				}
+			}
 		}
 	}
 	return true
