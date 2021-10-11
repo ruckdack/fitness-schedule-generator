@@ -10,25 +10,73 @@
     "splits": [
         {
             "name": "upper",
-            "exercises": [
-                ["incline benchpress (dumbbell)", "benchpress"],
-                ["high row (pulley)"],
-                ["lateral raise (dumbbell)", "lateral raise (machine)"],
-                ["lat pulldown"],
-                ["incline curl (dumbbell)", "curl machine"],
-                ["triceps extension", "overhead triceps extension"]
+            "executions": [
+                {
+                    "variations": [
+                        "incline benchpress (dumbbell)",
+                        "benchpress"
+                    ],
+                    "sets": [12, 14, 14, 16, 8]
+                },
+                {
+                    "variations": ["high row (pulley)"],
+                    "sets": [12, 14, 14, 16, 8]
+                },
+                {
+                    "variations": [
+                        "lateral raise (dumbbell)",
+                        "lateral raise (machine)"
+                    ],
+                    "sets": [12, 14, 14, 16, 8]
+                },
+                {
+                    "variations": ["lat pulldown"],
+                    "sets": [12, 14, 14, 16, 8]
+                },
+                {
+                    "variations": ["incline curl (dumbbell)", "curl machine"],
+                    "sets": [12, 14, 14, 16, 8]
+                },
+                {
+                    "variations": [
+                        "triceps extension",
+                        "overhead triceps extension"
+                    ],
+                    "sets": [12, 14, 14, 16, 8]
+                }
             ]
         },
         {
             "name": "lower",
             "exercises": [
-                ["iwas für quads"],
-                ["leg extension"],
-                ["RDL", "hip thrust"],
-                ["laying leg curl"],
-                ["seated calf raise"],
-                ["standing calf raise"],
-                ["crunch machine"]
+                {
+                    "variations": ["iwas für quads"],
+                    "sets": [12, 14, 14, 16, 8]
+                },
+                {
+                    "variations": ["leg extension"],
+                    "sets": [12, 14, 14, 16, 8]
+                },
+                {
+                    "variations": ["RDL", "hip thrust"],
+                    "sets": [12, 14, 14, 16, 8]
+                },
+                {
+                    "variations": ["laying leg curl"],
+                    "sets": [12, 14, 14, 16, 8]
+                },
+                {
+                    "variations": ["seated calf raise"],
+                    "sets": [12, 14, 14, 16, 8]
+                },
+                {
+                    "variations": ["standing calf raise"],
+                    "sets": [12, 14, 14, 16, 8]
+                },
+                {
+                    "variations": ["crunch machine"],
+                    "sets": [12, 14, 14, 16, 8]
+                }
             ]
         }
     ],
@@ -36,110 +84,92 @@
         {
             "name": "incline benchpress (dumbbell)",
             "initial_1rm": 101,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "benchpress",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "high row (pulley)",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "lateral raise (dumbbell)",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "lateral raise (machine)",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "lat pulldown",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "incline curl (dumbbell)",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "curl machine",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "triceps extension",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "overhead triceps extension",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "crunch machine",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "standing calf raise",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "seated calf raise",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "laying leg curl",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "hip thrust",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "RDL",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "leg extension",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         },
         {
             "name": "iwas für quads",
             "initial_1rm": 100,
-            "reps": 8,
-            "sets": [10, 12, 12, 14, 6]
+            "reps": 8
         }
     ]
 }

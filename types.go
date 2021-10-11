@@ -6,14 +6,16 @@ type Exercise struct {
 	Name         string  `json:"name"`
 	InitialOneRM float32 `json:"initial_1rm"`
 	Reps         int     `json:"reps"`
-	Sets         [5]int  `json:"sets"`
 }
 
-type ExerciseVariation []string
+type Execution struct {
+	Variations	[]string `json:"variations"`
+	Sets		[5]int 	 `json:"sets"`
+}
 
 type Split struct {
-	Name      string              `json:"name"`
-	Exercises []ExerciseVariation `json:"exercises"`
+	Name      string       `json:"name"`
+	Executions []Execution `json:"executions"`
 }
 
 type PlanConfig struct {

@@ -78,8 +78,8 @@ func isConfigValid(planConfig *PlanConfig) bool {
 		availableExercises[idx] = exercise.Name
 	}
 	for _, split := range planConfig.Splits {
-		for _, exerciseVariations := range split.Exercises {
-			for _, exercise := range exerciseVariations {
+		for _, execution := range split.Executions {
+			for _, exercise := range execution.Variations {
 				_, found := Find(availableExercises, exercise)
 				if !found {
 					return false
