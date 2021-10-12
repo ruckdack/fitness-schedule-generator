@@ -79,12 +79,23 @@ func isConfigValid(configPlan *ConfigPlan) bool {
 	}
 	for _, split := range configPlan.Splits {
 		for _, execution := range split.Executions {
-			for _, exercise := range execution.Variations {
+			for _, exercise := range execution {
 				_, found := Find(availableExercises, exercise)
 				if !found {
 					return false
 				}
 			}
+		}
+	}
+	// check if muscle identifiers in exercises are defined
+	availableMuscles := make([]string, len(configPlan.Muscles))
+	for idx, muscle := range configPlan.Muscles {
+		availableMuscles[idx] = muscle.Name
+	}
+	for _, exercise := range configPlan.Exercises {
+		_, found := Find(availableMuscles, exercise.Target)
+		if !found {
+			return false
 		}
 	}
 	return true
