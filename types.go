@@ -1,18 +1,17 @@
 package main
 
-import "time"
-
-var WeekNames = [5]string{"intro", "accumulation1", "accumulation2", "overreaching", "deload"}
+var WeekTypes = [5]string{"intro", "accumulation1", "accumulation2", "overreaching", "deload"}
 
 type Plan [5]Week
 
-type Week []*WorkoutDay
+type Week []WorkoutDay
 
 type WorkoutDay struct {
 	Date    string
-	Weekday time.Weekday
+	Weekday string//time.Weekday
+	WeekType string
 	Split string
-	Exercises []*Exercise
+	Exercises []Exercise
 }
 
 type Exercise struct {

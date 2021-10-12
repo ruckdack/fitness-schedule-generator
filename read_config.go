@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"log"
 	"os"
@@ -31,10 +32,11 @@ func ReadJson(fileLocation string) *ConfigPlan {
 	json.Unmarshal(byteJson, &configPlan)
 	// read weekdays into internal time format
 	configPlan.Weekdays = readWeekdays(&byteJson)
-	if isConfigValid(&configPlan) {
+	err = checkConfig(&configPlan)
+	if err == nil {
 		return &configPlan
 	}
-	log.Fatal("config keys are not valid")
+	log.Fatal(err.Error())
 	return nil
 }
 
@@ -55,21 +57,21 @@ func readWeekdays(byteJson *[]byte) map[time.Weekday]string {
 	return weekdayMap
 }
 
-func isConfigValid(configPlan *ConfigPlan) bool {
+func checkConfig(configPlan *ConfigPlan) error {
 	// check if startDate is a valid date
 	_, err := time.Parse(TIME_LAYOUT, configPlan.StartDate)
 	if err != nil {
-		return false
+		return nil
 	}
 	// check if weekdays use valid splits
 	splitNames := make([]string, len(configPlan.Splits))
 	for idx, split := range configPlan.Splits {
 		splitNames[idx] = split.Name
 	}
-	for _, val := range configPlan.Weekdays {
+	for weekday, val := range configPlan.Weekdays {
 		_, found := Find(splitNames, val)
 		if !found {
-			return false
+			return errors.New(val + " on " + weekday.String() + " is not defined")
 		}
 	}
 	// check if exercise identifiers in splits are defined
@@ -78,11 +80,14 @@ func isConfigValid(configPlan *ConfigPlan) bool {
 		availableExercises[idx] = exercise.Name
 	}
 	for _, split := range configPlan.Splits {
-		for _, execution := range split.Executions {
-			for _, exercise := range execution {
+		for _, variations := range split.Executions {
+			if len(variations) > 2 {
+				return errors.New("no more than 2 variations allowed")
+			}
+			for _, exercise := range variations {
 				_, found := Find(availableExercises, exercise)
 				if !found {
-					return false
+					return errors.New(exercise + " is not defined")
 				}
 			}
 		}
@@ -95,18 +100,18 @@ func isConfigValid(configPlan *ConfigPlan) bool {
 	for _, exercise := range configPlan.Exercises {
 		_, found := Find(availableMuscles, exercise.Target)
 		if !found {
-			return false
+			return errors.New(exercise.Target + " is not defined")
 		}
 	}
-	return true
+	return nil
 }
 
 func getWeekdays(m map[string]time.Weekday) []string {
 	keys := make([]string, len(m))
-	i := 0
+	idx := 0
 	for key := range m {
-		keys[i] = key
-		i++
+		keys[idx] = key
+		idx++
 	}
 	return keys
 }

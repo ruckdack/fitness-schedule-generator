@@ -14,11 +14,11 @@ type ConfigMuscle struct {
 	Sets [5]int `json:"sets"`
 }
 
-type ConfigExecution []string
+type ConfigVariations []string
 
 type ConfigSplit struct {
 	Name      string       `json:"name"`
-	Executions []ConfigExecution `json:"executions"`
+	Executions []ConfigVariations `json:"executions"`
 }
 
 type ConfigPlan struct {
