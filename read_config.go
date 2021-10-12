@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-const timeLayout = "2006-01-02"
+const TIME_LAYOUT = "2006-01-02"
 var daysOfWeek = map[string]time.Weekday {
 	"mon": time.Monday,
 	"tue": time.Tuesday,
@@ -19,20 +19,20 @@ var daysOfWeek = map[string]time.Weekday {
 	"sun": time.Sunday,
 }
 
-func ReadJson() *PlanConfig {
-	jsonFile, err := os.Open("config.json")
+func ReadJson(fileLocation string) *ConfigPlan {
+	jsonFile, err := os.Open(fileLocation)
 	if err != nil {
 		log.Fatal(err)
 		return nil
 	}
-	var planConfig PlanConfig
+	var configPlan ConfigPlan
 	byteJson, _ := ioutil.ReadAll(jsonFile)
 	jsonFile.Close()
-	json.Unmarshal(byteJson, &planConfig)
+	json.Unmarshal(byteJson, &configPlan)
 	// read weekdays into internal time format
-	planConfig.Weekdays = readWeekdays(&byteJson)
-	if isConfigValid(&planConfig) {
-		return &planConfig
+	configPlan.Weekdays = readWeekdays(&byteJson)
+	if isConfigValid(&configPlan) {
+		return &configPlan
 	}
 	log.Fatal("config keys are not valid")
 	return nil
@@ -42,10 +42,10 @@ func readWeekdays(byteJson *[]byte) map[time.Weekday]string {
 	type PlanConfigWeekdaysOnly struct {
 		Weekdays map[string]string `json:"weekdays"`
 	}
-	var planConfigWeekdaysOnly PlanConfigWeekdaysOnly
-	json.Unmarshal(*byteJson, &planConfigWeekdaysOnly)
+	var configPlanWeekdaysOnly PlanConfigWeekdaysOnly
+	json.Unmarshal(*byteJson, &configPlanWeekdaysOnly)
 	weekdayMap := make(map[time.Weekday]string)
-	for key, value := range planConfigWeekdaysOnly.Weekdays {
+	for key, value := range configPlanWeekdaysOnly.Weekdays {
 		_, found := Find(getWeekdays(daysOfWeek), key)
 		if !found {
 			log.Fatal("weekdays are not valid")
@@ -55,29 +55,29 @@ func readWeekdays(byteJson *[]byte) map[time.Weekday]string {
 	return weekdayMap
 }
 
-func isConfigValid(planConfig *PlanConfig) bool {
+func isConfigValid(configPlan *ConfigPlan) bool {
 	// check if startDate is a valid date
-	_, err := time.Parse(timeLayout, planConfig.StartDate)
+	_, err := time.Parse(TIME_LAYOUT, configPlan.StartDate)
 	if err != nil {
 		return false
 	}
 	// check if weekdays use valid splits
-	splitNames := make([]string, len(planConfig.Splits))
-	for idx, split := range planConfig.Splits {
+	splitNames := make([]string, len(configPlan.Splits))
+	for idx, split := range configPlan.Splits {
 		splitNames[idx] = split.Name
 	}
-	for _, val := range planConfig.Weekdays {
+	for _, val := range configPlan.Weekdays {
 		_, found := Find(splitNames, val)
 		if !found {
 			return false
 		}
 	}
 	// check if exercise identifiers in splits are defined
-	availableExercises := make([]string, len(planConfig.Exercises))
-	for idx, exercise := range planConfig.Exercises {
+	availableExercises := make([]string, len(configPlan.Exercises))
+	for idx, exercise := range configPlan.Exercises {
 		availableExercises[idx] = exercise.Name
 	}
-	for _, split := range planConfig.Splits {
+	for _, split := range configPlan.Splits {
 		for _, execution := range split.Executions {
 			for _, exercise := range execution.Variations {
 				_, found := Find(availableExercises, exercise)

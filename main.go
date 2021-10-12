@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"os"
 )
 
 func main() {
-	planConfig := *ReadJson()
-	log.Println("read json config successfully")
+	configFileLocation := os.Args[1]
+	planConfig := *ReadJson(configFileLocation)
 	fmt.Printf("%+v\n", planConfig)
 }

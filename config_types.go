@@ -2,25 +2,25 @@ package main
 
 import "time"
 
-type Exercise struct {
+type ConfigExercise struct {
 	Name         string  `json:"name"`
 	InitialOneRM float32 `json:"initial_1rm"`
 	Reps         int     `json:"reps"`
 }
 
-type Execution struct {
+type ConfigExecution struct {
 	Variations	[]string `json:"variations"`
 	Sets		[5]int 	 `json:"sets"`
 }
 
-type Split struct {
+type ConfigSplit struct {
 	Name      string       `json:"name"`
-	Executions []Execution `json:"executions"`
+	Executions []ConfigExecution `json:"executions"`
 }
 
-type PlanConfig struct {
+type ConfigPlan struct {
 	Weekdays  map[time.Weekday]string
 	StartDate string     `json:"start_date"`
-	Splits    []Split    `json:"splits"`
-	Exercises []Exercise `json:"exercises"`
+	Splits    []ConfigSplit    `json:"splits"`
+	Exercises []ConfigExercise `json:"exercises"`
 }
