@@ -4,7 +4,7 @@ import "time"
 
 var WeekNames = [5]string{"intro", "accumulation1", "accumulation2", "overreaching", "deload"}
 
-type Plan [5]*Week
+type Plan [5]Week
 
 type Week []*WorkoutDay
 
