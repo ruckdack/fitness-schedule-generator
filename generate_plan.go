@@ -6,12 +6,11 @@ import (
 	"time"
 )
 
-const ONE_RM_INCREASE float64 = 0.01
-
 func GeneratePlan(configPlan *ConfigPlan) Plan {
 	workoutsPerWeek := len(configPlan.Weekdays)
 	trainigWeekdays := getTrainingWeekdaysInOrder(configPlan)
 	variationCountPerSplit := make([]int, len(configPlan.Splits))
+	var plan Plan
 
 	generateWeek := func(weekIndex int) Week {
 		
@@ -48,7 +47,7 @@ func GeneratePlan(configPlan *ConfigPlan) Plan {
 					// should not happen if config checker works
 					return "", 0
 				}()
-				weight := math.Pow(1 + ONE_RM_INCREASE, float64(weekIndex % 4)) * configPlan.Exercises[idx].InitialOneRM
+				weight := math.Pow(1 + ONE_RM_INCREASE, float64(weekIndex % len(plan)-1)) * configPlan.Exercises[idx].InitialOneRM
 				weight /= 1 + float64(reps + RirMapping[weekIndex]) / 30
 				weight = math.Round(4 * weight) / 4
 				// sets is added in a second round as we don't know yet which exercises will be selected for the entire week
@@ -124,7 +123,6 @@ func GeneratePlan(configPlan *ConfigPlan) Plan {
 		return week
 	}
 
-	var plan Plan
 	for weekIndex := range plan {
 		plan[weekIndex] = generateWeek(weekIndex)
 	}
