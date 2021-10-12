@@ -16,12 +16,8 @@ func Find(slice []string, val string) (int, bool) {
 }
 
 func PrintPretty(emp interface{}) {
-	empJSON, err := json.Marshal(emp)
-	if err != nil {
-		log.Fatalf(err.Error())
-	}
 	//MarshalIndent
-	empJSON, err = json.MarshalIndent(emp, "", "    ")
+	empJSON, err := json.MarshalIndent(emp, "", "    ")
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
