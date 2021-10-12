@@ -1,12 +1,9 @@
 package main
 
-import (
-	"os"
-)
+import "fmt"
 
 func main() {
-	configFileLocation := os.Args[1]
-	configPlan := ReadJson(configFileLocation)
+	configPlan := ReadJson("config.json")
 	plan := GeneratePlan(configPlan)
-	PrintPretty(plan)
+	fmt.Println(ConvertIntoPrettyJSON(plan))
 }

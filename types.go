@@ -1,23 +1,25 @@
 package main
 
 var WeekTypes = [5]string{"intro", "accumulation1", "accumulation2", "overreaching", "deload"}
+var RirMapping = [5]int{2, 1, 1, 0, 4}
 
 type Plan [5]Week
 
 type Week []WorkoutDay
 
 type WorkoutDay struct {
-	Date    string
-	Weekday string//time.Weekday
-	WeekType string
-	Split string
-	Exercises []Exercise
+	Date      string     `json:"date"`
+	Weekday   string     `json:"weekday"`
+	WeekType  string     `json:"weektype"`
+	Split     string     `json:"split"`
+	Exercises []Exercise `json:"exercises"`
 }
 
 type Exercise struct {
-	Name string
-	Weight float32
-	Reps int
-	Sets int
-	Rir int
+	Name   string  `json:"name"`
+	Target string  `json:"target"`
+	Weight float64 `json:"weight"`
+	Reps   int     `json:"reps"`
+	Sets   int     `json:"sets"`
+	Rir    int     `json:"rir"`
 }

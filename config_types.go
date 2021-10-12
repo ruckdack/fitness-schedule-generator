@@ -4,7 +4,7 @@ import "time"
 
 type ConfigExercise struct {
 	Name         string  `json:"name"`
-	InitialOneRM float32 `json:"initial_1rm"`
+	InitialOneRM float64 `json:"initial_1rm"`
 	Reps         int     `json:"reps"`
 	Target	     string  `json:"target"`
 }

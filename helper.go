@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 )
 
@@ -15,11 +14,23 @@ func Find(slice []string, val string) (int, bool) {
 	return -1, false
 }
 
-func PrintPretty(emp interface{}) {
-	//MarshalIndent
+// spreads towards beginning
+func SpreadStart(amount int, parts int, idx int) int {
+	partsArr := make([]int, parts)
+	for i := 0; i < amount; i++ {
+		partsArr[i % parts]++
+	}
+	return partsArr[idx]
+}
+
+func SpreadEnd(amount int, parts int, idx int) int {
+	return SpreadStart(amount, parts, parts - 1 - idx)
+}
+
+func ConvertIntoPrettyJSON(emp interface{}) []byte {
 	empJSON, err := json.MarshalIndent(emp, "", "    ")
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
-	fmt.Printf("%s\n", string(empJSON))
+	return empJSON
 }
