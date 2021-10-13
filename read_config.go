@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"log"
+	"strings"
 	"time"
 )
 
@@ -56,7 +57,7 @@ func checkConfig(configPlan *ConfigPlan) error {
 	for weekday, val := range configPlan.Weekdays {
 		_, found := FindString(splitNames, val)
 		if !found {
-			return errors.New(val + " on " + weekday.String() + " is not defined")
+			return errors.New(val + " on " + strings.ToLower(weekday.String()) + " is not defined")
 		}
 	}
 	// check if exercise identifiers in splits are defined
