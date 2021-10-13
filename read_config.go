@@ -9,17 +9,6 @@ import (
 	"time"
 )
 
-const TIME_LAYOUT = "2006-01-02"
-var daysOfWeek = map[string]time.Weekday {
-	"mon": time.Monday,
-	"tue": time.Tuesday,
-	"wed": time.Wednesday,
-	"thu": time.Thursday,
-	"fri": time.Friday,
-	"sat": time.Saturday,
-	"sun": time.Sunday,
-}
-
 func ReadJson(fileLocation string) *ConfigPlan {
 	jsonFile, err := os.Open(fileLocation)
 	if err != nil {
@@ -48,11 +37,11 @@ func readWeekdays(byteJson *[]byte) map[time.Weekday]string {
 	json.Unmarshal(*byteJson, &configPlanWeekdaysOnly)
 	weekdayMap := make(map[time.Weekday]string)
 	for key, value := range configPlanWeekdaysOnly.Weekdays {
-		_, found := Find(getWeekdays(daysOfWeek), key)
+		_, found := Find(getWeekdays(DAYS_OF_WEEK), key)
 		if !found {
 			log.Fatal("weekdays are not valid")
 		}
-		weekdayMap[daysOfWeek[key]] = value
+		weekdayMap[DAYS_OF_WEEK[key]] = value
 	}
 	return weekdayMap
 }

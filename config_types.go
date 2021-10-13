@@ -2,6 +2,17 @@ package main
 
 import "time"
 
+const TIME_LAYOUT = "2006-01-02"
+var DAYS_OF_WEEK = map[string]time.Weekday {
+	"mon": time.Monday,
+	"tue": time.Tuesday,
+	"wed": time.Wednesday,
+	"thu": time.Thursday,
+	"fri": time.Friday,
+	"sat": time.Saturday,
+	"sun": time.Sunday,
+}
+
 type ConfigExercise struct {
 	Name         string  `json:"name"`
 	InitialOneRM float64 `json:"initial_1rm"`
