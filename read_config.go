@@ -3,25 +3,26 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"io/ioutil"
 	"log"
-	"os"
 	"time"
 )
 
-func ReadJson(fileLocation string) *ConfigPlan {
-	jsonFile, err := os.Open(fileLocation)
-	if err != nil {
-		log.Fatal(err)
-		return nil
-	}
+//const jsonString = `{"weekdays":{"mon":"upper","tue":"lower","wed":"upper","fri":"lower","sat":"upper"},"start_date":"2021-10-15","splits":[{"name":"upper","executions":[["inclinebenchpress(dumbbell)","benchpress"],["highrow(pulley)"],["lateralraise(dumbbell)","lateralraise(machine)"],["latpulldown"],["inclinecurl(dumbbell)","curlmachine"],["tricepsextension","overheadtricepsextension"]]},{"name":"lower","executions":[["iwasfürquads"],["legextension"],["RDL","hipthrust"],["layinglegcurl"],["seatedcalfraise"],["standingcalfraise"],["crunchmachine"]]}],"exercises":[{"name":"inclinebenchpress(dumbbell)","initial_1rm":107,"reps":9,"target":"chest"},{"name":"benchpress","initial_1rm":100,"reps":8,"target":"chest"},{"name":"highrow(pulley)","initial_1rm":100,"reps":8,"target":"lowertraps/rhomboids"},{"name":"lateralraise(dumbbell)","initial_1rm":100,"reps":8,"target":"delts"},{"name":"lateralraise(machine)","initial_1rm":100,"reps":8,"target":"delts"},{"name":"latpulldown","initial_1rm":100,"reps":8,"target":"lat"},{"name":"inclinecurl(dumbbell)","initial_1rm":100,"reps":8,"target":"biceps"},{"name":"curlmachine","initial_1rm":100,"reps":8,"target":"biceps"},{"name":"tricepsextension","initial_1rm":100,"reps":8,"target":"triceps"},{"name":"overheadtricepsextension","initial_1rm":100,"reps":8,"target":"triceps"},{"name":"crunchmachine","initial_1rm":100,"reps":8,"target":"abs"},{"name":"standingcalfraise","initial_1rm":100,"reps":8,"target":"calves"},{"name":"seatedcalfraise","initial_1rm":100,"reps":8,"target":"calves"},{"name":"layinglegcurl","initial_1rm":100,"reps":8,"target":"hamstrings"},{"name":"hipthrust","initial_1rm":100,"reps":8,"target":"glute"},{"name":"RDL","initial_1rm":100,"reps":8,"target":"hamstrings"},{"name":"legextension","initial_1rm":100,"reps":8,"target":"quads"},{"name":"iwasfürquads","initial_1rm":100,"reps":8,"target":"quads"}],"muscles":[{"name":"quads","sets":[12,14,14,16,8]},{"name":"chest","sets":[12,14,14,16,8]},{"name":"hamstrings","sets":[12,14,14,16,8]},{"name":"delts","sets":[12,14,14,16,8]},{"name":"calves","sets":[12,14,14,16,8]},{"name":"glute","sets":[12,14,14,16,8]},{"name":"lowertraps/rhomboids","sets":[12,14,14,16,8]},{"name":"lat","sets":[12,14,14,16,8]},{"name":"delts","sets":[12,14,14,16,8]},{"name":"abs","sets":[12,14,14,16,8]},{"name":"biceps","sets":[12,14,14,16,8]},{"name":"triceps","sets":[12,14,14,16,8]}]}`
+
+func ReadJson(jsonString string) *ConfigPlan {
+	// jsonFile, err := os.Open(fileLocation)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// 	return nil
+	// }
 	var configPlan ConfigPlan
-	byteJson, _ := ioutil.ReadAll(jsonFile)
-	jsonFile.Close()
+	// byteJson, _ := ioutil.ReadAll(jsonFile)
+	// jsonFile.Close()
+	byteJson := []byte(jsonString)
 	json.Unmarshal(byteJson, &configPlan)
 	// read weekdays into internal time format
 	configPlan.Weekdays = readWeekdays(&byteJson)
-	err = checkConfig(&configPlan)
+	err := checkConfig(&configPlan)
 	if err == nil {
 		return &configPlan
 	}
