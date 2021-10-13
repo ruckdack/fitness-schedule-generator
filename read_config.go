@@ -8,6 +8,7 @@ import (
 )
 
 func ReadJson(jsonString string) *ConfigPlan {
+
 	var configPlan ConfigPlan
 	byteJson := []byte(jsonString)
 	json.Unmarshal(byteJson, &configPlan)
@@ -38,6 +39,10 @@ func readWeekdays(byteJson *[]byte) map[time.Weekday]string {
 }
 
 func checkConfig(configPlan *ConfigPlan) error {
+	// check if all fields are valid
+	if (len(configPlan.Weekdays) == 0 || configPlan.StartDate == "" || len(configPlan.Splits) == 0 || len(configPlan.Exercises) == 0 || len(configPlan.Muscles) == 0) {
+		return errors.New("json fields are missing")
+	}
 	// check if startDate is a valid date
 	_, err := time.Parse(TIME_LAYOUT, configPlan.StartDate)
 	if err != nil {
