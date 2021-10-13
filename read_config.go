@@ -37,7 +37,7 @@ func readWeekdays(byteJson *[]byte) map[time.Weekday]string {
 	json.Unmarshal(*byteJson, &configPlanWeekdaysOnly)
 	weekdayMap := make(map[time.Weekday]string)
 	for key, value := range configPlanWeekdaysOnly.Weekdays {
-		_, found := Find(getWeekdays(DAYS_OF_WEEK), key)
+		_, found := FindString(getWeekdays(DAYS_OF_WEEK), key)
 		if !found {
 			log.Fatal("weekdays are not valid")
 		}
@@ -58,7 +58,7 @@ func checkConfig(configPlan *ConfigPlan) error {
 		splitNames[idx] = split.Name
 	}
 	for weekday, val := range configPlan.Weekdays {
-		_, found := Find(splitNames, val)
+		_, found := FindString(splitNames, val)
 		if !found {
 			return errors.New(val + " on " + weekday.String() + " is not defined")
 		}
@@ -74,7 +74,7 @@ func checkConfig(configPlan *ConfigPlan) error {
 				return errors.New("no more than 2 variations allowed")
 			}
 			for _, exercise := range variations {
-				_, found := Find(availableExercises, exercise)
+				_, found := FindString(availableExercises, exercise)
 				if !found {
 					return errors.New(exercise + " is not defined")
 				}
@@ -87,7 +87,7 @@ func checkConfig(configPlan *ConfigPlan) error {
 		availableMuscles[idx] = muscle.Name
 	}
 	for _, exercise := range configPlan.Exercises {
-		_, found := Find(availableMuscles, exercise.Target)
+		_, found := FindString(availableMuscles, exercise.Target)
 		if !found {
 			return errors.New(exercise.Target + " is not defined")
 		}
