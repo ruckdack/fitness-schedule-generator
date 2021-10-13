@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"log"
+	"time"
 )
 
 func Find(slice []string, val string) (int, bool) {
@@ -41,4 +42,8 @@ func ReverseInt(arr []int) []int {
 		newArr[i], newArr[j] = arr[j], arr[i]
 	}
 	return newArr
+}
+
+func NextDay(t time.Time) time.Time {
+	return t.AddDate(0, 0, 1)
 }
