@@ -22,7 +22,7 @@ type ConfigExercise struct {
 
 type ConfigMuscle struct {
 	Name string `json:"name"`
-	Sets [5]int `json:"sets"`
+	Sets []int `json:"sets"`
 }
 
 type ConfigVariations []string

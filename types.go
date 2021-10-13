@@ -2,8 +2,8 @@ package main
 
 const ONE_RM_INCREASE float64 = 0.01
 
-var WeekTypes = [5]string{"intro", "accumulation1", "accumulation2", "overreaching", "deload"}
-var RirMapping = [5]int{2, 1, 1, 0, 4}
+var WEEK_TYPES = [5]string{"intro", "accumulation1", "accumulation2", "overreaching", "deload"}
+var RIR_MAPPING = [5]int{2, 1, 1, 0, 4}
 
 type Plan [5]Week
 
