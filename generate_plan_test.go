@@ -2,7 +2,9 @@ package main
 
 import (
 	"math"
+	"strings"
 	"testing"
+	"time"
 )
 
 func TestSets(t *testing.T) {
@@ -70,5 +72,21 @@ func TestDeloadOneRM(t *testing.T) {
 				t.Error(exercise.Name + " 1RM is not correct")
 			}
 		}
+	}
+}
+
+func TestDates(t *testing.T) {
+	configPlan := ReadJson("config.json")
+	plan := GeneratePlan(configPlan)
+	for _, week := range(plan) {
+		for _, workoutDay := range(week) {
+			date, err := time.Parse(TIME_LAYOUT, workoutDay.Date)
+			if err != nil {
+				t.Error(workoutDay.Date + " cannot be parsed")
+			}
+			if strings.ToLower(date.Weekday().String()) != workoutDay.Weekday {
+				t.Error(workoutDay.Date + " does not match the weekday:\nwant: " + strings.ToLower(date.Weekday().String()) + "\nhave:" + workoutDay.Weekday)
+			}
+		} 
 	}
 }
