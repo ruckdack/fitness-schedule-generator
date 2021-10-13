@@ -27,10 +27,10 @@ func SpreadEnd(amount int, parts int, idx int) int {
 	return SpreadStart(amount, parts, parts - 1 - idx)
 }
 
-func ConvertIntoPrettyJSON(emp interface{}) []byte {
+func ConvertIntoPrettyJSON(emp interface{}) string {
 	empJSON, err := json.MarshalIndent(emp, "", "    ")
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
-	return empJSON
+	return string(empJSON)
 }
