@@ -35,8 +35,8 @@ func ConvertIntoPrettyJSON(emp interface{}) string {
 	return string(empJSON)
 }
 
-func Reverse(arr []interface{}) []interface{} {
-	newArr := make([]interface{}, len(arr))
+func ReverseInt(arr []int) []int {
+	newArr := make([]int, len(arr))
     for i, j := 0, len(arr)-1; i < j; i, j = i+1, j-1 {
 		newArr[i], newArr[j] = arr[j], arr[i]
 	}
