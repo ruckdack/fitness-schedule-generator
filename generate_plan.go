@@ -12,6 +12,7 @@ func GeneratePlan(configPlan *ConfigPlan) Plan {
 	for weekIdx := range plan {
 		plan[weekIdx] = generateWeek(configPlan, weekIdx)
 	}
+	addDates(&plan, configPlan)
 	return plan
 }
 
@@ -67,7 +68,6 @@ func generateWeek(configPlan *ConfigPlan, weekIdx int) Week {
 		}
 		variationCountPerSplit[splitIndex] = (variationCountPerSplit[splitIndex] + 1) % 2
 		return WorkoutDay{
-			Date: "bla",
 			Weekday: workoutWeekdays[workoutInWeek].String(),
 			WeekType: WEEK_TYPES[weekIdx],
 			Split: splitName,
@@ -168,4 +168,16 @@ func getRotatedTrainingWeekdays(configPlan *ConfigPlan) []time.Weekday {
 	workoutDays := getWorkoutWeekdaysInOrder(configPlan)
 	idx, _ := FindWeekday(workoutDays, earliestWorkoutDay)
 	return append(workoutDays[idx:], workoutDays[:idx]...)
+}
+
+func addDates(plan *Plan, configPlan *ConfigPlan) {
+	currentDate := getEarliestWorkoutDate(configPlan)
+	for weekIdx := range(plan) {
+		for workoutDayIdx, workoutDay  := range(plan[weekIdx]) {
+			for workoutDay.Weekday != currentDate.Weekday().String() {
+				currentDate = NextDay(currentDate)
+			}
+			plan[weekIdx][workoutDayIdx].Date = currentDate.Format(TIME_LAYOUT)
+		}
+	}
 }
