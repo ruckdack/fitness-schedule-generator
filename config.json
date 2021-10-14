@@ -22,7 +22,7 @@
         {
             "name": "lower",
             "executions": [
-                ["iwas für quads"],
+                ["iwas fuer quads"],
                 ["leg extension"],
                 ["RDL", "hip thrust"],
                 ["laying leg curl"],
@@ -136,7 +136,7 @@
             "target": "quads"
         },
         {
-            "name": "iwas für quads",
+            "name": "iwas fuer quads",
             "initial_1rm": 100,
             "reps": 8,
             "target": "quads"

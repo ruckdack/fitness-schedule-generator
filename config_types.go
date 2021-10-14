@@ -2,6 +2,7 @@ package main
 
 import "time"
 
+const ALLOWED_STRING_REGEX = `^([a-z]|[A-Z]|\s|\(|\)|\/){1,50}$`
 const TIME_LAYOUT = "2006-01-02"
 var DAYS_OF_WEEK = map[string]time.Weekday {
 	"mon": time.Monday,

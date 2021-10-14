@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"log"
+	"regexp"
 	"strings"
 	"time"
 )
@@ -40,6 +41,7 @@ func readWeekdays(byteJson *[]byte) map[time.Weekday]string {
 }
 
 func checkConfig(configPlan *ConfigPlan) error {
+	regex, _ := regexp.Compile(ALLOWED_STRING_REGEX)
 	// check if all fields are valid
 	if (len(configPlan.Weekdays) == 0 || configPlan.StartDate == "" || len(configPlan.Splits) == 0 || len(configPlan.Exercises) == 0 || len(configPlan.Muscles) == 0) {
 		return errors.New("json fields are missing")
@@ -60,15 +62,33 @@ func checkConfig(configPlan *ConfigPlan) error {
 			return errors.New(val + " on " + strings.ToLower(weekday.String()) + " is not defined")
 		}
 	}
-	// check if exercise identifiers in splits are defined
+	// check if split string fields are matching allowed string regex
+	for _, split := range configPlan.Splits {
+		if !regex.MatchString(split.Name) {
+			return errors.New("identifier \"" + split.Name + "\" is not allowed")
+		}
+	}
+	// check if muscle string fields are matching allowed string regex
+	for _, muscle := range configPlan.Muscles {
+		if !regex.MatchString(muscle.Name) {
+			return errors.New("identifier \"" + muscle.Name + "\" is not allowed")
+		}
+	}
+	// check if exercise string fields are matching allowed string regex
 	availableExercises := make([]string, len(configPlan.Exercises))
 	for idx, exercise := range configPlan.Exercises {
 		availableExercises[idx] = exercise.Name
 	}
+	for _, exercise := range availableExercises {
+		if !regex.MatchString(exercise) {
+			return errors.New("identifier \"" + exercise + "\" is not allowed")
+		}
+	}
+	// check if exercise identifiers in splits are defined
 	for _, split := range configPlan.Splits {
 		for _, variations := range split.Executions {
 			if len(variations) > 2 {
-				return errors.New("no more than 2 variations allowed")
+				return errors.New("in split " + split.Name + ": no more than 2 variations allowed")
 			}
 			for _, exercise := range variations {
 				_, found := FindString(availableExercises, exercise)
