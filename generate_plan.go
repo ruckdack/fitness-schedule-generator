@@ -47,16 +47,16 @@ func generateWeek(configPlan *ConfigPlan, weekIdx int) Week {
 					} 
 					return variations[0]
 				}()
-				target, reps := func() (string, int) {
+				target, reps, initialOneRM := func() (string, int, float64) {
 					for _, exercise := range configPlan.Exercises {
 						if exercise.Name == name {
-							return exercise.Target, exercise.Reps
+							return exercise.Target, exercise.Reps, exercise.InitialOneRM
 						}
 					}
 					// should not happen if config checker works
-					return "", 0
+					return "", 0, 0
 				}()
-				weight := math.Pow(1 + ONE_RM_INCREASE, float64(weekIdx % len(WEEK_TYPES)-1)) * configPlan.Exercises[idx].InitialOneRM
+				weight := math.Pow(1 + ONE_RM_INCREASE, float64(weekIdx % (len(WEEK_TYPES)-1))) * initialOneRM
 				weight /= 1 + float64(reps + RIR_MAPPING[weekIdx]) / 30
 				weight = math.Round(4 * weight) / 4
 				// sets is added in a second round as we don't know yet which exercises will be selected for the entire week
@@ -114,22 +114,24 @@ func addSets(week Week, weekIdx int, configPlan *ConfigPlan) Week {
 		iterationsThisDayPerMuscle := make(map[string]int) 
 		
 		musclesHit := make(map[string]bool)
-		for exerciseIdx, exercise := range(week[workoutDayIdx].Exercises) {
-			setsForMusclePerWeek := func() int {
-				for _, muscle := range(configPlan.Muscles) {
-					if muscle.Name == exercise.Target {
-						return muscle.Sets[weekIdx]
+		for supersetIdx, superset := range(week[workoutDayIdx].Supersets) {
+			for exerciseIdx, exercise := range(superset) {
+				setsForMusclePerWeek := func() int {
+					for _, muscle := range(configPlan.Muscles) {
+						if muscle.Name == exercise.Target {
+							return muscle.Sets[weekIdx]
+						}
+						// should not happen if config checker works
 					}
-					// should not happen if config checker works
-				}
-				return 0
-			}()
-			workoutDaySets := SpreadEnd(setsForMusclePerWeek, frequencyPerMuscle[exercise.Target], frequencyIterationPerMuscle[exercise.Target])
-			exerciseSets := SpreadStart(workoutDaySets, exercisesPerMusclePerDay[exercise.Target], iterationsThisDayPerMuscle[exercise.Target])
-			week[workoutDayIdx].Exercises[exerciseIdx].Sets = exerciseSets
-
-			musclesHit[exercise.Target] = true
-			iterationsThisDayPerMuscle[exercise.Target]++
+					return 0
+				}()
+				workoutDaySets := SpreadEnd(setsForMusclePerWeek, frequencyPerMuscle[exercise.Target], frequencyIterationPerMuscle[exercise.Target])
+				exerciseSets := SpreadStart(workoutDaySets, exercisesPerMusclePerDay[exercise.Target], iterationsThisDayPerMuscle[exercise.Target])
+				week[workoutDayIdx].Supersets[supersetIdx][exerciseIdx].Sets = exerciseSets
+	
+				musclesHit[exercise.Target] = true
+				iterationsThisDayPerMuscle[exercise.Target]++
+			}
 		}
 		for muscle := range musclesHit {
 			frequencyIterationPerMuscle[muscle]++

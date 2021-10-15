@@ -35,109 +35,109 @@
     "exercises": [
         {
             "name": "incline benchpress (dumbbell)",
-            "initial_1rm": 107,
+            "initial_1rm": 10,
             "reps": 9,
             "target": "chest"
         },
         {
             "name": "benchpress",
-            "initial_1rm": 100,
+            "initial_1rm": 200,
             "reps": 8,
             "target": "chest"
         },
         {
             "name": "high row (pulley)",
-            "initial_1rm": 100,
+            "initial_1rm": 300,
             "reps": 8,
             "target": "lower traps / rhomboids"
         },
         {
             "name": "lateral raise (dumbbell)",
-            "initial_1rm": 100,
+            "initial_1rm": 400,
             "reps": 8,
             "target": "delts"
         },
         {
             "name": "lateral raise (machine)",
-            "initial_1rm": 100,
+            "initial_1rm": 500,
             "reps": 8,
             "target": "delts"
         },
         {
             "name": "lat pulldown",
-            "initial_1rm": 100,
+            "initial_1rm": 600,
             "reps": 8,
             "target": "lat"
         },
         {
             "name": "incline curl (dumbbell)",
-            "initial_1rm": 100,
+            "initial_1rm": 700,
             "reps": 8,
             "target": "biceps"
         },
         {
             "name": "curl machine",
-            "initial_1rm": 100,
+            "initial_1rm": 800,
             "reps": 8,
             "target": "biceps"
         },
         {
             "name": "triceps extension",
-            "initial_1rm": 100,
+            "initial_1rm": 900,
             "reps": 8,
             "target": "triceps"
         },
         {
             "name": "overhead triceps extension",
-            "initial_1rm": 100,
+            "initial_1rm": 1000,
             "reps": 8,
             "target": "triceps"
         },
         {
             "name": "crunch machine",
-            "initial_1rm": 100,
+            "initial_1rm": 1100,
             "reps": 8,
             "target": "abs"
         },
         {
             "name": "standing calf raise",
-            "initial_1rm": 100,
+            "initial_1rm": 1200,
             "reps": 8,
             "target": "calves"
         },
         {
             "name": "seated calf raise",
-            "initial_1rm": 100,
+            "initial_1rm": 1300,
             "reps": 8,
             "target": "calves"
         },
         {
             "name": "laying leg curl",
-            "initial_1rm": 100,
+            "initial_1rm": 1400,
             "reps": 8,
             "target": "hamstrings"
         },
         {
             "name": "hip thrust",
-            "initial_1rm": 100,
+            "initial_1rm": 1500,
             "reps": 8,
             "target": "glute"
         },
         {
             "name": "RDL",
-            "initial_1rm": 100,
+            "initial_1rm": 1600,
             "reps": 8,
             "target": "hamstrings"
         },
         {
             "name": "leg extension",
-            "initial_1rm": 100,
+            "initial_1rm": 1700,
             "reps": 8,
             "target": "quads"
         },
         {
             "name": "iwas fuer quads",
-            "initial_1rm": 100,
+            "initial_1rm": 1800,
             "reps": 8,
             "target": "quads"
         }
