@@ -50,7 +50,7 @@ func TestOneRM(t *testing.T) {
 					}
 					return 0
 				}()
-				if (haveInitialOneRM - wantInitialOnrRM) < 0.25 {
+				if (haveInitialOneRM - wantInitialOnrRM) > 0.25 {
 					t.Error(exercise.Name + " 1RM is not correct")
 				}
 			}
