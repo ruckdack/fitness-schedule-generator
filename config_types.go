@@ -37,6 +37,7 @@ type ConfigSplit struct {
 
 type ConfigPlan struct {
 	Weekdays  map[time.Weekday]string
+	ConfigWeekdays map[string]string `json:"weekdays"`
 	StartDate string     `json:"start_date"`
 	Splits    []ConfigSplit    `json:"splits"`
 	Exercises []ConfigExercise `json:"exercises"`

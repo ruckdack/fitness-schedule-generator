@@ -6,29 +6,33 @@
         "fri": "lower",
         "sat": "upper"
     },
-    "start_date": "2021-10-15",
+    "start_date": "2021-10-16",
     "splits": [
         {
             "name": "upper",
             "exercises": [
-                ["incline benchpress (dumbbell)", "benchpress"],
-                ["high row (pulley)"],
-                ["lateral raise (dumbbell)", "lateral raise (machine)"],
-                ["lat pulldown"],
-                ["incline curl (dumbbell)", "curl machine"],
-                ["triceps extension", "overhead triceps extension"]
+                [
+                    ["incline benchpress (dumbbell)", "benchpress"],
+                    ["high row (pulley)"]
+                ],
+                [
+                    ["lateral raise (dumbbell)", "lateral raise (machine)"],
+                    ["lat pulldown"]
+                ],
+                [
+                    ["incline curl (dumbbell)", "curl machine"],
+                    ["triceps extension", "overhead triceps extension"]
+                ]
             ]
         },
         {
             "name": "lower",
             "exercises": [
-                ["iwas fuer quads"],
-                ["leg extension"],
-                ["RDL", "hip thrust"],
-                ["laying leg curl"],
-                ["seated calf raise"],
-                ["standing calf raise"],
-                ["crunch machine"]
+                [["leg press"]],
+                [["RDL", "hip thrust"]],
+                [["leg extension"], ["laying leg curl"]],
+                [["seated calf raise"], ["standing calf raise"]],
+                [["crunch machine"]]
             ]
         }
     ],
@@ -136,7 +140,7 @@
             "target": "quads"
         },
         {
-            "name": "iwas fuer quads",
+            "name": "leg press",
             "initial_1rm": 1800,
             "reps": 8,
             "target": "quads"

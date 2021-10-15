@@ -10,12 +10,15 @@ import (
 )
 
 func ReadJson(jsonString string) *ConfigPlan {
-
 	var configPlan ConfigPlan
 	byteJson := []byte(jsonString)
-	json.Unmarshal(byteJson, &configPlan)
-	configPlan.Weekdays = readWeekdays(&byteJson)
-	err := checkConfig(&configPlan)
+	err := json.Unmarshal(byteJson, &configPlan)
+	if (err != nil) {
+		log.Fatal("json structure is not correct")
+		return nil
+	}
+	readWeekdays(&configPlan)
+	err = checkConfig(&configPlan)
 	if err == nil {
 		return &configPlan
 	}
@@ -23,21 +26,15 @@ func ReadJson(jsonString string) *ConfigPlan {
 	return nil
 }
 
-func readWeekdays(byteJson *[]byte) map[time.Weekday]string {
-	type PlanConfigWeekdaysOnly struct {
-		Weekdays map[string]string `json:"weekdays"`
-	}
-	var configPlanWeekdaysOnly PlanConfigWeekdaysOnly
-	json.Unmarshal(*byteJson, &configPlanWeekdaysOnly)
-	weekdayMap := make(map[time.Weekday]string)
-	for key, value := range configPlanWeekdaysOnly.Weekdays {
+func readWeekdays(configPlan *ConfigPlan) {
+	configPlan.Weekdays = make(map[time.Weekday]string)
+	for key, value := range configPlan.ConfigWeekdays {
 		_, found := FindString(getWeekdays(DAYS_OF_WEEK), key)
 		if !found {
 			log.Fatal("weekdays are not valid")
 		}
-		weekdayMap[DAYS_OF_WEEK[key]] = value
+		configPlan.Weekdays[DAYS_OF_WEEK[key]] = value
 	}
-	return weekdayMap
 }
 
 func checkConfig(configPlan *ConfigPlan) error {

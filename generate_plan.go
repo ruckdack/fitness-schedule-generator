@@ -40,7 +40,7 @@ func generateWeek(configPlan *ConfigPlan, weekIdx int) Week {
 		// select correct exercise from variations
 		for supersetIdx, superset := range configSupersets {
 			exercisesInSuperset := make([]Exercise, len(superset))
-			for _, variations := range superset {
+			for variationIdx, variations := range superset {
 				name := func() string {
 					if len(variations) == 2 {
 						return variations[variationCountPerSplit[splitIndex]]
@@ -60,7 +60,7 @@ func generateWeek(configPlan *ConfigPlan, weekIdx int) Week {
 				weight /= 1 + float64(reps + RIR_MAPPING[weekIdx]) / 30
 				weight = math.Round(4 * weight) / 4
 				// sets is added in a second round as we don't know yet which exercises will be selected for the entire week
-				exercisesInSuperset[supersetIdx] = Exercise{
+				exercisesInSuperset[variationIdx] = Exercise{
 					Name: name,
 					Target: target,
 					Reps: reps,
