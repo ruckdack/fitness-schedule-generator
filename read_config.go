@@ -9,21 +9,19 @@ import (
 	"time"
 )
 
-func ReadJson(jsonString string) *ConfigPlan {
+func ReadJson(jsonString string) (*ConfigPlan, error) {
 	var configPlan ConfigPlan
 	byteJson := []byte(jsonString)
 	err := json.Unmarshal(byteJson, &configPlan)
 	if (err != nil) {
-		log.Fatal("json structure is not correct")
-		return nil
+		return nil, errors.New("json structure is not correct")
 	}
 	readWeekdays(&configPlan)
 	err = checkConfig(&configPlan)
 	if err == nil {
-		return &configPlan
+		return &configPlan, nil
 	}
-	log.Fatal(err.Error())
-	return nil
+	return nil, err
 }
 
 func readWeekdays(configPlan *ConfigPlan) {

@@ -169,7 +169,6 @@ func getEarliestWorkoutDate(configPlan *ConfigPlan) time.Time {
 		}
 		date = NextDay(date)
 	}
-	// TODO this might cause some issues if config has no weekdays as the loop does not run
 	return date
 }
 
