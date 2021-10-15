@@ -86,14 +86,16 @@ func checkConfig(configPlan *ConfigPlan) error {
 	}
 	// check if exercise identifiers in splits are defined
 	for _, split := range configPlan.Splits {
-		for _, variations := range split.Executions {
-			if len(variations) > 2 {
-				return errors.New("in split " + split.Name + ": no more than 2 variations allowed")
-			}
-			for _, exercise := range variations {
-				_, found := FindString(availableExercises, exercise)
-				if !found {
-					return errors.New(exercise + " is not defined")
+		for _, superset := range split.Supersets {
+			for _, variations := range superset {
+				if len(variations) > 2 {
+					return errors.New("in split " + split.Name + ": no more than 2 variations allowed")
+				}
+				for _, exercise := range variations {
+					_, found := FindString(availableExercises, exercise)
+					if !found {
+						return errors.New(exercise + " is not defined")
+					}
 				}
 			}
 		}

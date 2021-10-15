@@ -25,7 +25,7 @@ func generateWeek(configPlan *ConfigPlan, weekIdx int) Week {
 	generateWorkoutDay := func(workoutInWeek int) WorkoutDay {
 
 		splitName := configPlan.Weekdays[workoutWeekdays[workoutInWeek]]
-		getSplitIndex := func() int {
+		splitIndex := func() int {
 			for idx, split := range configPlan.Splits {
 				if split.Name == splitName {
 					return idx
@@ -33,46 +33,49 @@ func generateWeek(configPlan *ConfigPlan, weekIdx int) Week {
 			}
 			// should not happen if config checker works
 			return 0
-		}
-		splitIndex := getSplitIndex()
-		executions := configPlan.Splits[splitIndex].Executions
-		exercises := make([]Exercise, len(executions))
+		}()
+		configSupersets := configPlan.Splits[splitIndex].Supersets
+		supersets := make([]Superset, len(configSupersets))
 
 		// select correct exercise from variations
-		for idx, variations := range executions {
-			name := func() string {
-				if len(variations) == 2 {
-					return variations[variationCountPerSplit[splitIndex]]
-				} 
-				return variations[0]
-			}()
-			target, reps := func() (string, int) {
-				for _, exercise := range configPlan.Exercises {
-					if exercise.Name == name {
-						return exercise.Target, exercise.Reps
+		for supersetIdx, superset := range configSupersets {
+			exercisesInSuperset := make([]Exercise, len(superset))
+			for _, variations := range superset {
+				name := func() string {
+					if len(variations) == 2 {
+						return variations[variationCountPerSplit[splitIndex]]
+					} 
+					return variations[0]
+				}()
+				target, reps := func() (string, int) {
+					for _, exercise := range configPlan.Exercises {
+						if exercise.Name == name {
+							return exercise.Target, exercise.Reps
+						}
 					}
+					// should not happen if config checker works
+					return "", 0
+				}()
+				weight := math.Pow(1 + ONE_RM_INCREASE, float64(weekIdx % len(WEEK_TYPES)-1)) * configPlan.Exercises[idx].InitialOneRM
+				weight /= 1 + float64(reps + RIR_MAPPING[weekIdx]) / 30
+				weight = math.Round(4 * weight) / 4
+				// sets is added in a second round as we don't know yet which exercises will be selected for the entire week
+				exercisesInSuperset[supersetIdx] = Exercise{
+					Name: name,
+					Target: target,
+					Reps: reps,
+					Weight: weight,
+					Rir: RIR_MAPPING[weekIdx],
 				}
-				// should not happen if config checker works
-				return "", 0
-			}()
-			weight := math.Pow(1 + ONE_RM_INCREASE, float64(weekIdx % len(WEEK_TYPES)-1)) * configPlan.Exercises[idx].InitialOneRM
-			weight /= 1 + float64(reps + RIR_MAPPING[weekIdx]) / 30
-			weight = math.Round(4 * weight) / 4
-			// sets is added in a second round as we don't know yet which exercises will be selected for the entire week
-			exercises[idx] = Exercise{
-				Name: name,
-				Target: target,
-				Reps: reps,
-				Weight: weight,
-				Rir: RIR_MAPPING[weekIdx],
 			}
+			supersets[supersetIdx] = exercisesInSuperset
 		}
 		variationCountPerSplit[splitIndex] = (variationCountPerSplit[splitIndex] + 1) % 2
 		return WorkoutDay{
 			Weekday: strings.ToLower(workoutWeekdays[workoutInWeek].String()),
 			WeekType: WEEK_TYPES[weekIdx],
 			Split: splitName,
-			Exercises: exercises,
+			Supersets: supersets,
 		}
 	}
 	week := make(Week, workoutsPerWeek)
@@ -87,8 +90,10 @@ func addSets(week Week, weekIdx int, configPlan *ConfigPlan) Week {
 	for _, workoutDay := range(week) {
 		// prevents double adding when a muscle is hit twice in a day
 		musclesHit := make(map[string]bool)
-		for _, exercise := range(workoutDay.Exercises) {
-			musclesHit[exercise.Target] = true
+		for _, superset := range(workoutDay.Supersets) {
+			for _, exercise := range(superset) {
+				musclesHit[exercise.Target] = true
+			}
 		}
 		for muscle := range musclesHit {
 			frequencyPerMuscle[muscle]++
@@ -100,8 +105,10 @@ func addSets(week Week, weekIdx int, configPlan *ConfigPlan) Week {
 	for workoutDayIdx, workoutDay := range(week) {
 
 		exercisesPerMusclePerDay := make(map[string]int)
-		for _, exercise := range workoutDay.Exercises {
-			exercisesPerMusclePerDay[exercise.Target]++
+		for _, superset := range workoutDay.Supersets {
+			for _, exercise := range superset {
+				exercisesPerMusclePerDay[exercise.Target]++
+			}
 		}
 		// same as frequency iteration, only difference is that we round towards beginning
 		iterationsThisDayPerMuscle := make(map[string]int) 

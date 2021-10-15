@@ -10,7 +10,7 @@
     "splits": [
         {
             "name": "upper",
-            "executions": [
+            "exercises": [
                 ["incline benchpress (dumbbell)", "benchpress"],
                 ["high row (pulley)"],
                 ["lateral raise (dumbbell)", "lateral raise (machine)"],
@@ -21,7 +21,7 @@
         },
         {
             "name": "lower",
-            "executions": [
+            "exercises": [
                 ["iwas fuer quads"],
                 ["leg extension"],
                 ["RDL", "hip thrust"],

@@ -14,8 +14,10 @@ type WorkoutDay struct {
 	Weekday   string     `json:"weekday"`
 	WeekType  string     `json:"weektype"`
 	Split     string     `json:"split"`
-	Exercises []Exercise `json:"exercises"`
+	Supersets []Superset `json:"exercises"`
 }
+
+type Superset []Exercise
 
 type Exercise struct {
 	Name   string  `json:"name"`

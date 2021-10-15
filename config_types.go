@@ -26,11 +26,13 @@ type ConfigMuscle struct {
 	Sets []int `json:"sets"`
 }
 
+type ConfigSuperset []ConfigVariations
+
 type ConfigVariations []string
 
 type ConfigSplit struct {
 	Name      string       `json:"name"`
-	Executions []ConfigVariations `json:"executions"`
+	Supersets []ConfigSuperset `json:"exercises"`
 }
 
 type ConfigPlan struct {
