@@ -16,5 +16,10 @@ func main() {
 		return
 	}
 	plan := GeneratePlan(configPlan)
-	fmt.Println(ConvertIntoPrettyJSON(plan))
+	//fmt.Println(ConvertIntoPrettyJSON(plan))
+	templateString, err := RenderHTMLTemplate(plan)
+	if err != nil {
+		log.Fatal(err.Error())
+	} 
+	fmt.Println(templateString)
 }

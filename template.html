@@ -1,0 +1,47 @@
+<html>
+    <head> </head>
+    <body>
+        {{ range . }} {{ range . }}
+        <table>
+            <caption>
+                <table>
+                    <tr>
+                        <th>date</th>
+                        <td>{{ .Date }}</td>
+                    </tr>
+                    <tr>
+                        <th>weekday</th>
+                        <td>{{ .Weekday }}</td>
+                    </tr>
+                    <tr>
+                        <th>weektype</th>
+                        <td>{{ .WeekType }}</td>
+                    </tr>
+                    <tr>
+                        <th>split</th>
+                        <td>{{ .Split }}</td>
+                    </tr>
+                </table>
+            </caption>
+            <tr>
+                <th>Name</th>
+                <th>Target</th>
+                <th>Weight</th>
+                <th>Reps</th>
+                <th>Sets</th>
+                <th>Rir</th>
+            </tr>
+            {{ range .Supersets}} {{ range .}}
+            <tr>
+                <td>{{ .Name }}</td>
+                <td>{{ .Target }}</td>
+                <td>{{ .Weight }}</td>
+                <td>{{ .Reps }}</td>
+                <td>{{ .Sets }}</td>
+                <td>{{ .Rir }}</td>
+            </tr>
+            {{ end }} {{end}}
+        </table>
+        {{ end }} {{ end }}
+    </body>
+</html>
