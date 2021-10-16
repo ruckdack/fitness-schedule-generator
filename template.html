@@ -1,10 +1,18 @@
 <html>
-    <head> </head>
+    <head>
+        <link href="style.css" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+            rel="stylesheet"
+        />
+    </head>
     <body>
         {{ range . }} {{ range . }}
         <table>
             <caption>
-                <table>
+                <table align="left">
                     <tr>
                         <th>date</th>
                         <td>{{ .Date }}</td>
@@ -24,21 +32,21 @@
                 </table>
             </caption>
             <tr>
-                <th>Name</th>
-                <th>Target</th>
-                <th>Weight</th>
-                <th>Reps</th>
-                <th>Sets</th>
-                <th>Rir</th>
+                <th>name</th>
+                <th>sets</th>
+                <th>reps</th>
+                <th>weight</th>
+                <th>RIR</th>
+                <th>muscle</th>
             </tr>
-            {{ range .Supersets}} {{ range .}}
-            <tr>
+            {{ range .Supersets}} {{ range $i, $_ := . }}
+            <tr {{ if eq $i 0}} class="start-tr" {{ end }}>
                 <td>{{ .Name }}</td>
-                <td>{{ .Target }}</td>
-                <td>{{ .Weight }}</td>
-                <td>{{ .Reps }}</td>
                 <td>{{ .Sets }}</td>
+                <td>{{ .Reps }}</td>
+                <td>{{ .Weight }}</td>
                 <td>{{ .Rir }}</td>
+                <td>{{ .Target }}</td>
             </tr>
             {{ end }} {{end}}
         </table>

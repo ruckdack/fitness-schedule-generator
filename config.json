@@ -31,8 +31,8 @@
                 [["leg press"]],
                 [["RDL", "hip thrust"]],
                 [["leg extension"], ["laying leg curl"]],
-                [["seated calf raise"], ["standing calf raise"]],
-                [["crunch machine"]]
+                [["seated calf raise"], ["hyperextensions"]],
+                [["standing calf raise"], ["crunch machine"]]
             ]
         }
     ],
@@ -144,6 +144,12 @@
             "initial_1rm": 1800,
             "reps": 8,
             "target": "quads"
+        },
+        {
+            "name": "hyperextensions",
+            "initial_1rm": 50,
+            "reps": 12,
+            "target": "lower back"
         }
     ],
     "muscles": [
@@ -193,6 +199,10 @@
         },
         {
             "name": "triceps",
+            "sets": [12, 14, 14, 16, 8]
+        },
+        {
+            "name": "lower back",
             "sets": [12, 14, 14, 16, 8]
         }
     ]
