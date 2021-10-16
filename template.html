@@ -10,46 +10,50 @@
     </head>
     <body>
         {{ range . }} {{ range . }}
-        <table>
-            <caption>
-                <table align="left">
+        <div class="wrapper">
+            <div class="card">
+                <table class="main-table">
+                    <caption>
+                        <table align="left">
+                            <tr>
+                                <th>date</th>
+                                <td>{{ .Date }}</td>
+                            </tr>
+                            <tr>
+                                <th>weekday</th>
+                                <td>{{ .Weekday }}</td>
+                            </tr>
+                            <tr>
+                                <th>weektype</th>
+                                <td>{{ .WeekType }}</td>
+                            </tr>
+                            <tr>
+                                <th>split</th>
+                                <td>{{ .Split }}</td>
+                            </tr>
+                        </table>
+                    </caption>
                     <tr>
-                        <th>date</th>
-                        <td>{{ .Date }}</td>
+                        <th>exercise</th>
+                        <th>sets</th>
+                        <th>reps</th>
+                        <th>weight</th>
+                        <th>RIR</th>
+                        <th>muscle</th>
                     </tr>
-                    <tr>
-                        <th>weekday</th>
-                        <td>{{ .Weekday }}</td>
+                    {{ range .Supersets}} {{ range $i, $_ := . }}
+                    <tr {{ if eq $i 0}} class="start-tr" {{ end }}>
+                        <td>{{ .Name }}</td>
+                        <td>{{ .Sets }}</td>
+                        <td>{{ .Reps }}</td>
+                        <td>{{ .Weight }}</td>
+                        <td>{{ .Rir }}</td>
+                        <td>{{ .Target }}</td>
                     </tr>
-                    <tr>
-                        <th>weektype</th>
-                        <td>{{ .WeekType }}</td>
-                    </tr>
-                    <tr>
-                        <th>split</th>
-                        <td>{{ .Split }}</td>
-                    </tr>
+                    {{ end }} {{end}}
                 </table>
-            </caption>
-            <tr>
-                <th>name</th>
-                <th>sets</th>
-                <th>reps</th>
-                <th>weight</th>
-                <th>RIR</th>
-                <th>muscle</th>
-            </tr>
-            {{ range .Supersets}} {{ range $i, $_ := . }}
-            <tr {{ if eq $i 0}} class="start-tr" {{ end }}>
-                <td>{{ .Name }}</td>
-                <td>{{ .Sets }}</td>
-                <td>{{ .Reps }}</td>
-                <td>{{ .Weight }}</td>
-                <td>{{ .Rir }}</td>
-                <td>{{ .Target }}</td>
-            </tr>
-            {{ end }} {{end}}
-        </table>
+            </div>
+        </div>
         {{ end }} {{ end }}
     </body>
 </html>
