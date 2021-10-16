@@ -1,8 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
+	"errors"
+	"io"
 	"log"
+	"os"
 	"time"
 )
 
@@ -55,4 +59,24 @@ func ReverseInt(arr []int) []int {
 
 func NextDay(t time.Time) time.Time {
 	return t.AddDate(0, 0, 1)
+}
+
+func ReadPipe() (string, error) {
+	info, err := os.Stdin.Stat()
+    if err != nil {
+        panic(err)
+    }
+	if info.Mode()&os.ModeCharDevice != 0 {
+		return "", errors.New("pipe something into this command")
+	}
+	reader := bufio.NewReader(os.Stdin)
+	var str string
+	for {
+		line, err := reader.ReadString('\n')
+		if err != nil && err == io.EOF {
+			break
+		}
+		str += line
+	}
+	return str, nil
 }
