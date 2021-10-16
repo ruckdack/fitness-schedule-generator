@@ -39,38 +39,38 @@
     "exercises": [
         {
             "name": "incline benchpress (dumbbell)",
-            "initial_1rm": 10,
-            "reps": 9,
+            "initial_1rm": 93,
+            "reps": 10,
             "target": "chest"
         },
         {
             "name": "benchpress",
-            "initial_1rm": 200,
+            "initial_1rm": 105,
             "reps": 8,
             "target": "chest"
         },
         {
             "name": "high row (pulley)",
-            "initial_1rm": 300,
-            "reps": 8,
+            "initial_1rm": 80,
+            "reps": 10,
             "target": "lower traps / rhomboids"
         },
         {
             "name": "lateral raise (dumbbell)",
-            "initial_1rm": 400,
-            "reps": 8,
+            "initial_1rm": 14.5,
+            "reps": 12,
             "target": "delts"
         },
         {
             "name": "lateral raise (machine)",
-            "initial_1rm": 500,
-            "reps": 8,
+            "initial_1rm": 18.5,
+            "reps": 12,
             "target": "delts"
         },
         {
             "name": "lat pulldown",
-            "initial_1rm": 600,
-            "reps": 8,
+            "initial_1rm": 80,
+            "reps": 10,
             "target": "lat"
         },
         {
@@ -150,6 +150,12 @@
             "initial_1rm": 50,
             "reps": 12,
             "target": "lower back"
+        },
+        {
+            "name": "high row (machine)",
+            "initial_1rm": 115,
+            "reps": 8,
+            "target": "lower traps / rhomboids"
         }
     ],
     "muscles": [
