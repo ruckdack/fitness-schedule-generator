@@ -1,5 +1,5 @@
-config.json
-gym-planner.exe
-gym-planner.wasm
-gym-planner
-plan.pdf
+plan-generation/config.json
+plan-generation/gym-planner.exe
+plan-generation/gym-planner.wasm
+plan-generation/gym-planner
+plan-generation/plan.pdf
