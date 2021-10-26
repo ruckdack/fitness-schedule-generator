@@ -1,0 +1,21 @@
+<div class="exercise-wrapper">
+  <button id="toggle-expansion-button" (click)="toggleExpansion()">
+    {{ exercise.name }}
+  </button>
+  <div *ngIf="expanded" class="table-wrapper" [@flyInOut]>
+    <table>
+      <tr>
+        <th>1RM</th>
+        <td>{{ exercise.initial_1rm }}</td>
+      </tr>
+      <tr>
+        <th>reps</th>
+        <td>{{ exercise.reps }}</td>
+      </tr>
+      <tr>
+        <th>muscle</th>
+        <td>{{ exercise.target }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
