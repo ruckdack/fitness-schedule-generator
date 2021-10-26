@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "gym-planner-33f37": {
+      "hosting": {
+        "frontend": [
+          "gym-planner-33f37"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "gym-planner-33f37"
+  }
+}
