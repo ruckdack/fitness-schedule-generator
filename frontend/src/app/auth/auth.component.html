@@ -1,0 +1,9 @@
+<div *ngIf="showLogoutButton">
+  <span>Logged in!</span>
+  <button (click)="logout()">Log out</button>
+  <span>{{ userID }}</span>
+</div>
+<div *ngIf="showLoginButton">
+  <span>Logged out!</span>
+  <button (click)="login()">Log in with Google</button>
+</div>
