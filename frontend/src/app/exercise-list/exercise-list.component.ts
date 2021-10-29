@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscriber, Subscription } from 'rxjs';
 import { ConfigService } from '../services/config/config.service';
-import { Config, Exercise } from '../services/config/types.config.service';
+import { Exercise } from '../services/config/types.config.service';
 
 @Component({
   selector: 'app-exercise-list',
@@ -10,21 +10,42 @@ import { Config, Exercise } from '../services/config/types.config.service';
 })
 export class ExerciseListComponent implements OnInit {
   public exercises: Exercise[];
-  private exerciseSubscription: Subscription = Subscription.EMPTY;
+  public pushExercises: () => void;
+  public currentlyExpanded: number | null;
+  private exercisesSubscription: Subscription;
 
   constructor(public configService: ConfigService) {
     this.exercises = [];
+    this.currentlyExpanded = null;
+    this.pushExercises = () => {};
+    this.exercisesSubscription = Subscription.EMPTY;
   }
 
   ngOnInit(): void {
-    this.exerciseSubscription = this.configService.subExercises(
+    this.exercisesSubscription = this.configService.subExercises(
       Subscriber.create((exercises?: Exercise[]) => {
-        this.exercises = exercises!;
+        if (this.exercises.length !== exercises!.length) {
+          this.exercises = exercises!;
+          return;
+        }
+        this.exercises.forEach((exercise: Exercise, idx: number) =>
+          Object.assign(exercise, exercises![idx])
+        );
       })
     );
+
+    this.pushExercises = () => this.configService.pushExercises(this.exercises);
   }
 
   ngOnDestroy(): void {
-    this.exerciseSubscription.unsubscribe();
+    this.exercisesSubscription.unsubscribe();
+  }
+
+  expandWrapper(idx: number) {
+    return () => (this.currentlyExpanded = idx);
+  }
+
+  closeWrapper() {
+    return () => (this.currentlyExpanded = null);
   }
 }

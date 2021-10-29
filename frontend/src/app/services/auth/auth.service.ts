@@ -5,7 +5,7 @@ import {
   signOut,
   User,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
 } from '@angular/fire/auth';
 import { EMPTY, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   async login() {
-    return await signInWithPopup(this.auth, new GoogleAuthProvider());
+    return await signInWithRedirect(this.auth, new GoogleAuthProvider());
   }
 
   async logout() {

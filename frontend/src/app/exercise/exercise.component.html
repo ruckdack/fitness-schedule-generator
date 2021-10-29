@@ -6,15 +6,38 @@
     <table>
       <tr>
         <th>1RM</th>
-        <td>{{ exercise.initial_1rm }}</td>
+        <td>
+          <input
+            type="number"
+            onkeydown="javascript: return [8, 46, 37, 39, 190].includes(event.keyCode) ? true : !isNaN(Number(event.key))"
+            [ngModel]="exercise.initial_1rm"
+            (ngModelChange)="update1RM($event)"
+          />
+        </td>
       </tr>
       <tr>
         <th>reps</th>
-        <td>{{ exercise.reps }}</td>
+        <td>
+          <input
+            type="number"
+            onkeydown="javascript: return [8, 46, 37, 39, 190].includes(event.keyCode) ? true : !isNaN(Number(event.key))"
+            [ngModel]="exercise.reps"
+            (ngModelChange)="updateReps($event)"
+          />
+        </td>
       </tr>
       <tr>
         <th>muscle</th>
-        <td>{{ exercise.target }}</td>
+        <td>
+          <select
+            [ngModel]="exercise.target"
+            (ngModelChange)="updateTarget($event)"
+          >
+            <option *ngFor="let muscleName of muscleNames">
+              {{ muscleName }}
+            </option>
+          </select>
+        </td>
       </tr>
     </table>
   </div>

@@ -1,30 +1,39 @@
 $medium: 12px
 $border-color: lightgray
+$background-color: transparent
 
 .exercise-wrapper
-    border-top: 1px solid $border-color
+    border-bottom: 1px solid $border-color
     width: 100%
 
 #toggle-expansion-button
     border: 0
     width: 100%
     padding: $medium
-    background-color: transparent
+    background-color: $background-color
     text-align: left
     font-weight: bold
 
 .table-wrapper
     border-top: 1px solid $border-color
-    width: 100%
+    padding: $medium 0 0 0
+    margin: 0 $medium $medium $medium
+    background-color: $background-color
+    overflow: hidden
 
 table
     border-collapse: collapse
 
 td, th
     padding: 0 $medium $medium $medium
+    text-align: left
 
-tr:first-child > th, tr:first-child > td
-    padding: $medium
+tr:last-child > th, tr:last-child > td
+    padding: 0 $medium 0 $medium
 
-th
-    text-align: right
+input
+    border: 0
+    padding: 0
+
+input:focus
+    outline: none 

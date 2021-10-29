@@ -1,6 +1,10 @@
 <div id="exercises-wrapper">
   <app-exercise
-    *ngFor="let exercise of exercises"
+    *ngFor="let exercise of exercises; let i = index"
     [exercise]="exercise"
+    [pushExercises]="pushExercises"
+    [expand]="expandWrapper(i)"
+    [close]="closeWrapper()"
+    [expanded]="i === currentlyExpanded"
   ></app-exercise>
 </div>
