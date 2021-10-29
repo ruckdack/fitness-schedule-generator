@@ -2,7 +2,7 @@
   <button id="toggle-expansion-button" (click)="toggleExpansion()">
     {{ exercise.name }}
   </button>
-  <div *ngIf="expanded" class="table-wrapper" [@flyInOut]>
+  <div *ngIf="expanded" class="table-wrapper" [@foldInOut]>
     <table>
       <tr>
         <th>1RM</th>

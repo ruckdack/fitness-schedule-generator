@@ -9,7 +9,7 @@ import { Exercise } from '../services/config/types.config.service';
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.sass'],
   animations: [
-    trigger('flyInOut', [
+    trigger('foldInOut', [
       transition(':enter', [
         style({ height: 0, 'padding-top': 0, 'margin-bottom': 0 }),
         animate(100),
